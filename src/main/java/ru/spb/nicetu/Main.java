@@ -24,10 +24,11 @@ public class Main {
            MonitoringService ms = new ImpMonitoringService();
            logger.info("Init monitoring service");
            ms.init();
+           //Catch closing service moment and put msg into logs
+           Runtime.getRuntime().addShutdownHook(new Thread(() -> logger.warn("Getted shutdown signal. Close application")));
        }
        catch (Exception e) {
            logger.error("Fatal error. Coused {}", e.getCause());
        }
-
     }
 }

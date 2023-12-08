@@ -9,6 +9,9 @@ import ru.spb.nicetu.utils.*;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +22,7 @@ public class ImpMonitoringService implements MonitoringService {
     private OperatingSystemMXBean systemBean;
     private final IJSONProvider provider = new JSONProvider();
     private MetricProtocol protocol;
-    private final IFileService fileService = new FileService(Main.metricPath);
+    private IFileService fileService = new FileService(Main.metricPath);
     private boolean isStartState = true;
     private final File root = new File("/");
     private Runnable task = () -> collectTask();
@@ -31,7 +34,6 @@ public class ImpMonitoringService implements MonitoringService {
         if (fileService.isExisted()) {
             logger.info("Data file was detected. Initialize MetricProtocol");
             protocol = (MetricProtocol) provider.parse(MetricProtocol.class, fileService);
-            System.out.println(protocol.toString());
         }
         else protocol = new MetricProtocol();
         try {
@@ -52,6 +54,12 @@ public class ImpMonitoringService implements MonitoringService {
 
     private void collectTask() {
         logger.info("Start execution task");
+        if (!fileService.getTarget().getName().contains(
+                ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))
+        )) {
+            logger.info("Detected new day. Refresh data file");
+            fileService = new FileService(Main.metricPath);
+        }
         double cpuLoad = systemBean.getSystemCpuLoad();
         if (cpuLoad < 0.0000000000001) {
             cpuLoad = 0.0;
