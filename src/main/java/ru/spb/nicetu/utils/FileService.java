@@ -19,6 +19,8 @@ public class FileService implements IFileService {
     private boolean initFile(String path) {
         logger.info("Start finding metrics file");
         String directorySlash = System.getProperty("os.name").contains("Windows") ? "\\" : "/";
+        File directory = new File(path);
+        if (!directory.exists()) directory.mkdir();
         target = new File(path + directorySlash + "metrics-" + ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("uuuu-MM-dd")) + ".json");
         boolean exist = false;
         try {

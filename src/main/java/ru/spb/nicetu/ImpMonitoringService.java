@@ -59,6 +59,7 @@ public class ImpMonitoringService implements MonitoringService {
         )) {
             logger.info("Detected new day. Refresh data file");
             fileService = new FileService(Main.metricPath);
+            protocol = new MetricProtocol();
         }
         double cpuLoad = systemBean.getSystemCpuLoad();
         if (cpuLoad < 0.0000000000001) {

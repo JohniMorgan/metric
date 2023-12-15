@@ -18,7 +18,7 @@ public class Main {
            Properties props = new Properties();
            props.load(configStream);
            metricPath = props.getProperty("metricsPath");
-           logger.info("Metric dir path configured to: {}", props.getProperty("metricPath"));
+           logger.info("Metric dir path configured to: {}", metricPath);
            updateInterval = Integer.parseInt(props.getProperty("updateInterval"));
            logger.info("Update interval set {} minutes", updateInterval);
            MonitoringService ms = new ImpMonitoringService();
@@ -28,7 +28,7 @@ public class Main {
            Runtime.getRuntime().addShutdownHook(new Thread(() -> logger.warn("Getted shutdown signal. Close application")));
        }
        catch (Exception e) {
-           logger.error("Fatal error. Coused {}", e.getCause());
+           logger.error("Fatal error. caused {}", e.toString());
        }
     }
 }
