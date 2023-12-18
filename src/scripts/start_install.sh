@@ -1,15 +1,11 @@
 #!/bin/bash
 # Script for Linux OS
-# Required .jar file + /lib in current dir
+# Required .jar file in current dir
 
-INSTALL_PATH="/var/www/service/metrics/"
-CONFIGURE_PATH="metricsPath=/var/www/service/metrics/data"
+INSTALL_PATH="/otp/nicetu/metrics/"
+CONFIGURE_PATH="metricsPath=${INSTALL_PATH}/data"
 CONFIGURE_INTERVAL="updateInterval=30"
 SERVICE_PATH="/etc/systemd/system/pk_metrics.service"
-#INSTALL_PATH="/opt/nicetu/metrics/"
-#CONFIGURE_PATH="metricsPath=/opt/nicetu/metrics/data"
-#CONFIGURE_INTERVAL="updateInterval=30"
-
 
 #File variables
 CONFIGURATION="${INSTALL_PATH}pk_metrics.properties"
@@ -32,8 +28,7 @@ fi
 # Creating directories
 echo "----------------------"
 mkdir -vp "${INSTALL_PATH}service/"
-cp -v metric-1.0-SNAPSHOT.jar "${INSTALL_PATH}service/"
-cp -vR libs "${INSTALL_PATH}service/libs"
+cp -v metric-1.0-SNAPSHOT-jar-with-dependencies.jar "${INSTALL_PATH}service/"
 touch $CONFIGURATION
 echo $CONFIGURE_PATH >> $CONFIGURATION
 echo $CONFIGURE_INTERVAL >> $CONFIGURATION
@@ -48,15 +43,17 @@ echo "[Unit]"
 echo "Description=PK Metric service for source monitoring"
 echo ""
 echo "[Service]"
-echo "ExecStart=/usr/bin/java -jar ${INSTALL_PATH}service/metric-1.0-SNAPSHOT.jar ${CONFIGURATION}"
+echo "ExecStart=java -jar ${INSTALL_PATH}service/metric-1.0-SNAPSHOT.jar ${CONFIGURATION}"
 echo "ExecStop=/bin/kill -15 \${MAINPID}"
 echo ""
 echo "User=root"
 echo "Group=root"
 echo "Restart=always"
-echo ""
+echo "RestartSec=10"
 echo "[Install]"
 echo "WantedBy=multi-user.target"
 
+systemctl daemon-reload
+systemctl enable pk_metrics.service
 
 
