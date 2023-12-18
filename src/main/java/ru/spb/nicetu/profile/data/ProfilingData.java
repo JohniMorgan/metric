@@ -40,7 +40,7 @@ public class ProfilingData {
     public String toString() {
         return "{" +
                 "\n   date: " + this.date +
-                "\n   cpuLoad: " + this.cpuLoad +
+                ",\n   cpuLoad: " + this.cpuLoad +
                 ",\n   totalPhysicalMemory: " + this.totalMemory +
                 ",\n   freePhysicalMemory: " + this.freeMemory +
                 ",\n   totalDriveSpace: " + this.totalDrive +

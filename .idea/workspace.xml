@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d068132-3395-48e6-b213-a13f93cf811c" name="Changes" comment="(1!) Исправление ревью (ч.1)&#10;Переведены логи. Изменён конфигурационный файл log4j. Закрытие потока">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="8d068132-3395-48e6-b213-a13f93cf811c" name="Changes" comment="Исправлен скрипт установки на Linux">
+      <change afterPath="$PROJECT_DIR$/src/scripts/install_windows.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/profile/data/ProfilingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/profile/data/ProfilingData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pk_metrics.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pk_metrics.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/start_install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/start_install.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +44,9 @@
         <option name="url" value="https://github.com/JohniMorgan/metric" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/scripts/install_windows.bat" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -122,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702905965906</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Исправлен скрипт установки на Linux">
+      <created>1702909072952</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702909072952</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,7 +151,8 @@
     <MESSAGE value="added transition to a new day.&#10;added shutdown logs" />
     <MESSAGE value="Protocol bug fix. Add Linux install script template" />
     <MESSAGE value="(1!) Исправление ревью (ч.1)&#10;Переведены логи. Изменён конфигурационный файл log4j. Закрытие потока" />
-    <option name="LAST_COMMIT_MESSAGE" value="(1!) Исправление ревью (ч.1)&#10;Переведены логи. Изменён конфигурационный файл log4j. Закрытие потока" />
+    <MESSAGE value="Исправлен скрипт установки на Linux" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправлен скрипт установки на Linux" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/metric$Main.ic" NAME="Main Coverage Results" MODIFIED="1701706620366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

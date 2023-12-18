@@ -2,10 +2,11 @@
 # Script for Linux OS
 # Required .jar file in current dir
 
-INSTALL_PATH="/otp/nicetu/metrics/"
-CONFIGURE_PATH="metricsPath=${INSTALL_PATH}/data"
+INSTALL_PATH="/opt/nicetu/metrics/"
+CONFIGURE_PATH="metricsPath=${INSTALL_PATH}data"
 CONFIGURE_INTERVAL="updateInterval=30"
 SERVICE_PATH="/etc/systemd/system/pk_metrics.service"
+TARGET=metric-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 #File variables
 CONFIGURATION="${INSTALL_PATH}pk_metrics.properties"
@@ -28,7 +29,7 @@ fi
 # Creating directories
 echo "----------------------"
 mkdir -vp "${INSTALL_PATH}service/"
-cp -v metric-1.0-SNAPSHOT-jar-with-dependencies.jar "${INSTALL_PATH}service/"
+cp -v ${TARGET} "${INSTALL_PATH}service/"
 touch $CONFIGURATION
 echo $CONFIGURE_PATH >> $CONFIGURATION
 echo $CONFIGURE_INTERVAL >> $CONFIGURATION
@@ -43,7 +44,7 @@ echo "[Unit]"
 echo "Description=PK Metric service for source monitoring"
 echo ""
 echo "[Service]"
-echo "ExecStart=java -jar ${INSTALL_PATH}service/metric-1.0-SNAPSHOT.jar ${CONFIGURATION}"
+echo "ExecStart=java -jar ${INSTALL_PATH}service/${TARGET} ${CONFIGURATION}"
 echo "ExecStop=/bin/kill -15 \${MAINPID}"
 echo ""
 echo "User=root"
