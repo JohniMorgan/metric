@@ -14,18 +14,19 @@ public class JSONProvider implements IJSONProvider {
 
     @Override
     public Object parse(Class t, IFileService jsonInFile) {
-        logger.debug("start parse JSON file");
+        logger.debug("Старт десерализации JSON  в объект");
         Object result = null;
         try {
             result = objectMapper.readValue(jsonInFile.getTarget(), t);
         } catch (Exception e) {
-            logger.error("Parse file error caused {}", e.getMessage());
+            logger.error("Ошибка десериализации. Причина: {}", e.getMessage());
         }
         return result;
     }
 
     @Override
     public String stringify(Object t) {
+        logger.debug("Старт сериализации объекта в JSON");
         this.objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         StringWriter sw = new StringWriter();
         String result = null;
@@ -33,7 +34,7 @@ public class JSONProvider implements IJSONProvider {
             objectMapper.writeValue(sw, t);
             result = sw.toString();
         } catch (IOException e) {
-            logger.error("Stringify error caused {}", e.getMessage());
+            logger.error("Ошибка сериализации. Причина: {}", e.getMessage());
         }
         return result;
     }

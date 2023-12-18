@@ -13,7 +13,7 @@ public class ImpSystemProfiler implements Profiler {
 
     @Override
     public void init() {
-        logger.debug("Profiler init'ed");
+        logger.debug("Системный профилировщик инициализирован");
         systemParams = new HashMap<>();
     }
     @Override
@@ -30,7 +30,7 @@ public class ImpSystemProfiler implements Profiler {
     }
     public ProfilingData collectData(int period) {
         ProfilingData data = null;
-        logger.debug("Collecting all data for JSON stringify");
+        logger.debug("Сбор данный в строку для последующего превращения в JSON");
         try {
                 data = new ProfilingData((int)Math.floor((double)systemParams.get("CPULoad")),
                     (Long) systemParams.get("totalPhysicalMemory"),
@@ -38,7 +38,7 @@ public class ImpSystemProfiler implements Profiler {
                     (Long) systemParams.get("totalDriveSpace"),
                     (Long) systemParams.get("freeDriveSpace"), period);
         } catch (Exception e) {
-            logger.error("error caused {}", e.getMessage());
+            logger.error("Ошибка выполнения. Причина: {}", e.getMessage());
         }
         return data;
     }

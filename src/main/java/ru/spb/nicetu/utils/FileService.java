@@ -17,7 +17,7 @@ public class FileService implements IFileService {
         continiuos = initFile(path);
     }
     private boolean initFile(String path) {
-        logger.info("Start finding metrics file");
+        logger.info("Запущен поиск файла метрик");
         String directorySlash = System.getProperty("os.name").contains("Windows") ? "\\" : "/";
         File directory = new File(path);
         if (!directory.exists()) directory.mkdir();
@@ -26,11 +26,11 @@ public class FileService implements IFileService {
         try {
             exist = target.exists();
             if (!exist) {
-                logger.warn("File doesn't exist. Creating file...");
-                target.createNewFile();
-            }
+                logger.warn("Файл не существует! Идёт попытка создания файла...");
+                if (target.createNewFile()) logger.info("Файл был успешно создан");
+            } else logger.info("Файл обнаружен, получения доступа");
         } catch (Exception e) {
-            logger.error("file error caused {}", e.getMessage());
+            logger.error("Ошибка обращения к файлу. Причина: {}", e.getMessage());
         }
         return exist;
     }
@@ -40,14 +40,21 @@ public class FileService implements IFileService {
 
     @Override
     public void write(String content) {
-        logger.debug("Start write into file");
+        logger.debug("Инициализация потока записи в файл");
+        FileWriter writer = null;
         try {
-            FileWriter writer = new FileWriter(target);
+            writer = new FileWriter(target);
             writer.write(content);
             writer.flush();
-            writer.close();
         } catch (Exception e) {
-            logger.error("Write to file error caused {}", e.getMessage());
+            logger.error("Ошибка записи файла. Причина: {}", e.getMessage());
+        } finally {
+            if (writer != null) try {
+                writer.close();
+            }
+            catch(Exception er) {
+                logger.error("Ошибка закрытия файла. Причина: {}", er.getMessage());
+            }
         }
     }
 

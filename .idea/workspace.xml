@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d068132-3395-48e6-b213-a13f93cf811c" name="Changes" comment="Protocol bug fix. Add Linux install script template">
-      <change afterPath="$PROJECT_DIR$/src/scripts/start_install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/ImpMonitoringService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/ImpMonitoringService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/ImpSystemProfiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/ImpSystemProfiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/JSONProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/spb/nicetu/utils/JSONProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="059285a351c7fcb77aa7765b3ef52abfd2b83305" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

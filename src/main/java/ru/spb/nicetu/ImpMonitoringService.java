@@ -28,36 +28,36 @@ public class ImpMonitoringService implements MonitoringService {
     private Runnable task = () -> collectTask();
     @Override
     public void init() {
-        logger.info("Start service initialization");
+        logger.info("Инициализация сервиса...");
         systemBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         systemProfiler.init();
         if (fileService.isExisted()) {
-            logger.info("Data file was detected. Initialize MetricProtocol");
+            logger.info("Файл с данными обнаружен. Идёт инициализация протокола");
             protocol = (MetricProtocol) provider.parse(MetricProtocol.class, fileService);
         }
         else protocol = new MetricProtocol();
         try {
-            logger.info("Initialization system profiler");
+            logger.info("Иницализация профилировщика...");
             systemProfiler.createCounter("CPULoad");
             systemProfiler.createCounter("totalPhysicalMemory");
             systemProfiler.createCounter("freePhysicalMemory");
             systemProfiler.createCounter("totalDriveSpace");
             systemProfiler.createCounter("freeDriveSpace");
         } catch (Exception e) {
-            logger.error("Fatal error. System profiler error cause {}", e.getCause());
+            logger.error("Фатальная ошибка. Ошибка инициализации сервиса. Причина: {}", e.getCause());
         }
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         //exec.scheduleWithFixedDelay(task, 0L, 30L, TimeUnit.SECONDS);
         exec.scheduleWithFixedDelay(task, 0L, Main.updateInterval, TimeUnit.MINUTES);
-        logger.info("Service initialization success");
+        logger.info("Сервис успешно инциализирован и запущен");
     }
 
     private void collectTask() {
-        logger.info("Start execution task");
+        logger.info("Старт выполнения задачи");
         if (!fileService.getTarget().getName().contains(
                 ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))
         )) {
-            logger.info("Detected new day. Refresh data file");
+            logger.info("Зафиксирован новый день. Идёт смена файла... Реинициализация протокола...");
             fileService = new FileService(Main.metricPath);
             protocol = new MetricProtocol();
         }
@@ -66,17 +66,18 @@ public class ImpMonitoringService implements MonitoringService {
             cpuLoad = 0.0;
         }
         try {
-            logger.info("Getting metric data from system...");
+            logger.info("Получение информации от системы...");
             systemProfiler.setOnCounter("totalPhysicalMemory", systemBean.getTotalPhysicalMemorySize() / 1024 / 1024);
             systemProfiler.setOnCounter("freePhysicalMemory", systemBean.getFreePhysicalMemorySize() / 1024 / 1024);
             systemProfiler.setOnCounter("totalDriveSpace", root.getTotalSpace() / 1024 / 1024);
             systemProfiler.setOnCounter("freeDriveSpace", root.getFreeSpace() / 1024 / 1024);
             systemProfiler.setOnCounter("CPULoad", cpuLoad * 100);
             protocol.addToProtocol(systemProfiler.collectData(isStartState ? 0 : Main.updateInterval));
+            logger.info("Информация получена успешно");
             fileService.write(provider.stringify(protocol));
             this.isStartState = false;
         } catch (Exception e) {
-            logger.error("Task execution error cause {}", e.getMessage());
+            logger.error("Ошибка выполнения задачи. Причина: {}", e.getMessage());
         }
     }
 }

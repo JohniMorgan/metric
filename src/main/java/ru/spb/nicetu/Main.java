@@ -11,24 +11,25 @@ public class Main {
     static String metricPath;
     static int updateInterval = 30;
     public static void main(String[] args) {
-        logger.info("Start service application");
+        logger.info("Инициализация сервиса");
+
        try {
-           logger.info("Config application");
+           logger.info("Конфигурация сервиса");
            FileInputStream configStream = new FileInputStream(args[0]);
            Properties props = new Properties();
            props.load(configStream);
            metricPath = props.getProperty("metricsPath");
-           logger.info("Metric dir path configured to: {}", metricPath);
+           logger.info("Путь к файлам метрик сконфигурирован: {}", metricPath);
            updateInterval = Integer.parseInt(props.getProperty("updateInterval"));
-           logger.info("Update interval set {} minutes", updateInterval);
+           logger.info("Установлен интервал обновления данных {} минут", updateInterval);
            MonitoringService ms = new ImpMonitoringService();
-           logger.info("Init monitoring service");
+           logger.info("Запрос инициализации сервиса мониторинга");
            ms.init();
            //Catch closing service moment and put msg into logs
-           Runtime.getRuntime().addShutdownHook(new Thread(() -> logger.warn("Getted shutdown signal. Close application")));
+           Runtime.getRuntime().addShutdownHook(new Thread(() -> logger.warn("Получен сигнал прерывания от системы. Сервис завершает работу")));
        }
        catch (Exception e) {
-           logger.error("Fatal error. caused {}", e.toString());
+           logger.error("Фатальная ошибка. Причина: {}", e.toString());
        }
     }
 }
